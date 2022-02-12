@@ -2,57 +2,57 @@
 #include<locale.h>
 #include<stdlib.h>
     #include<time.h>
-float ** alocMat(int linha, int coluna){
+float ** alocMat(int lin, int col){
     float **a;
-    a = (float **) malloc (linha * sizeof(float));
-    for (int i = 0; i < linha; i++){
-        a[i] = (float *) malloc (coluna * sizeof(float));
+    a = (float **) malloc (lin * sizeof(float));
+    for (int i = 0; i < lin; i++){
+        a[i] = (float *) malloc (col * sizeof(float));
     }
 return a;
 }
-void povoar(int linha, int coluna, float **mat){
-    for (int i = 0; i < linha; i++){
-        for (int o = 0; o < coluna; o++){
+void povoar(int lin, int col, float **mat){
+    for (int i = 0; i < lin; i++){
+        for (int o = 0; o < col; o++){
             scanf("%f", &mat[i][o]);
         }
     }
 }
-    void povoarA(int linha, int coluna, float **mat){
+    void povoarA(int lin, int col, float **mat){    //povoa com numreos aleatorios
         srand(time(NULL));
-        for (int i = 0; i < linha; i++){
-            for (int o = 0; o < coluna; o++){
+        for (int i = 0; i < lin; i++){
+            for (int o = 0; o < col; o++){
                 mat[i][o] = rand() % 100 /** 1.0*/;
             }
         }
     }
-void mostrar(int linha, int coluna, float **mat){
-    for (int i = 0; i < linha; i++){
-        for (int o = 0; o < coluna; o++){
-            printf("%.1f ", mat[i][o]);
+void mostrar(int lin, int col, float **mat){
+    for (int i = 0; i < lin; i++){
+        for (int o = 0; o < col; o++){
+            printf("%.1f\t", mat[i][o]);
         }
         printf("\n");
     }
 }
-void determinante(int linha, int coluna, float **mat){
+void determinante(int lin, int col, float **mat){
     float det;
-    if (linha == 1 && coluna == 1){
-        det = mat[linha][coluna];
-    } else if (linha == 2 && coluna == 2){
-    } else if (linha == 3 && coluna == 3){
+    if (lin == 1 && col == lin){
+        det = mat[lin][col];
+    } else if (lin == 2 && col == lin){
+    } else if (lin == 3 && col == lin){
     } else {
     }
-    
+
     printf("Determinante = %.2f ", det);
 }
-void calcEscalar(int linha, int coluna, float **mat, float nEscalar){
-    for (int i = 0; i < linha; i++){
-        for (int o = 0; o < coluna; o++){
-            mat[i][o] *= nEscalar;
+void calcEscalar(int lin, int col, float **mat, float numE){
+    for (int i = 0; i < lin; i++){
+        for (int o = 0; o < col; o++){
+            mat[i][o] *= numE;
         }
     }
 }
-void liberar(int linha, int coluna, float **mat){
-    for (int i = 0; i < linha; i++){
+void liberar(int lin, int col, float **mat){
+    for (int i = 0; i < lin; i++){
         free(mat[i]);
     }
     free(mat);
@@ -60,20 +60,22 @@ void liberar(int linha, int coluna, float **mat){
 }
 int main(){
     setlocale(LC_ALL, "");
-    int x = 3 , y = 3;
-    float **z, e;
+    int lin = 3 , col = 3;
+    float **mat, numE = 2;
 
-    //scanf("%d", &x);
-    //scanf("%d", &y);
-    //scanf("%f", &e); // numero escalar
+    //scanf("%d", &lin);
+    //scanf("%d", &col);
+    //scanf("%f", &numE); // numero escalar
 
-    z = alocMat(x, y);
-    povoarA(x, y, z);
-    mostrar(x, y, z);
-    //calcEscalar(x, y, z, e);
-    //determinante(x, y, z);
-    //mostrar(x, y, z);
+    mat = alocMat(lin, col);
+    //povoar(lin, col, mat);
+    povoarA(lin, col, mat);
+    mostrar(lin, col, mat);
+    calcEscalar(lin, col, mat, numE);
+    mostrar(lin, col, mat);
+    //determinante(lin, col, mat);
+    //mostrar(lin, col, mat);
 
-    liberar(x, y, z);
+    liberar(lin, col, mat);
 return 0;
 }
